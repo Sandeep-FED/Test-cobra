@@ -23,6 +23,7 @@ function App() {
   // TODO: For storing the input data in states for later sending purpose
   const [optionss, setOptions] = useState("Select segment")
   const [segmentName, setSegmentName] = useState("")
+  const [dropdowns, setDropdowns] = useState([])
 
   const Addsections = () => {
     console.log("new section added")
@@ -40,6 +41,40 @@ function App() {
 
   // handle for sending data to server
   const handleSubmit = () => {}
+
+  const createDropdown = () => {
+    // create a new dropdown element
+    const dropdown = (
+      <div>
+        <select onChange={handleChange}>
+          <option>-- Select a segment --</option>
+
+          {options.map((optionss) => (
+            <option key={optionss.label} value={optionss.value}>
+              {optionss.value}
+            </option>
+          ))}
+        </select>
+        <IconButton
+          aria-label='delete'
+          onClick={() => removeDropdown(dropdown)}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </div>
+    )
+    // add the dropdown to the array of dropdowns
+    setDropdowns([...dropdowns, dropdown])
+  }
+
+  const removeDropdown = (dropdownToRemove) => {
+    // filter out the dropdown to remove from the array
+    const updatedDropdowns = dropdowns.filter(
+      (dropdown) => dropdown !== dropdownToRemove
+    )
+    // set the updated array of dropdowns
+    setDropdowns(updatedDropdowns)
+  }
 
   return (
     <div className='App'>
@@ -72,21 +107,12 @@ function App() {
               query
             </p>
             <div className='drop-down'>
-              <select onChange={handleChange}>
-                <option>-- Select a segment --</option>
-
-                {options.map((optionss) => (
-                  <option key={optionss.label} value={optionss.value}>
-                    {optionss.value}
-                  </option>
-                ))}
-              </select>
-              <IconButton aria-label='delete'>
-                <DeleteIcon />
-              </IconButton>
+              {dropdowns.map((dropdown, index) => (
+                <div key={index}>{dropdown}</div>
+              ))}
               <div>
                 <Button
-                  onClick={Addsections}
+                  onClick={createDropdown}
                   startIcon={<AddCircleOutlineIcon />}
                 >
                   Add new schema
