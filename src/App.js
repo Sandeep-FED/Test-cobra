@@ -55,7 +55,7 @@ function App() {
         <Panel
           headerText='Saving Segment'
           isOpen={isOpen}
-          type={PanelType.medium}
+          type={PanelType.small}
           onDismiss={dismissPanel}
           closeButtonAriaLabel='Close'
         >
@@ -64,8 +64,8 @@ function App() {
               label='Name of the segment'
               placeholder='Enter the name of the segment'
               variant='outlined'
-              fullWidth={true}
               onChange={handleInputChange}
+              size='small'
             />
             <p>
               To save your segment, you need to add the schemas to build the
@@ -73,13 +73,11 @@ function App() {
             </p>
             <div className='drop-down'>
               <select onChange={handleChange}>
-                <option value='⬇️ Select a fruit ⬇️'>
-                  -- Select a segment --
-                </option>
+                <option>-- Select a segment --</option>
 
                 {options.map((optionss) => (
                   <option key={optionss.label} value={optionss.value}>
-                    {optionss.label}
+                    {optionss.value}
                   </option>
                 ))}
               </select>
@@ -96,7 +94,6 @@ function App() {
               </div>
             </div>
             <div className='footer'>
-              {" "}
               <Button
                 variant='outlined'
                 color='primary'
@@ -104,6 +101,14 @@ function App() {
                 className='btn'
               >
                 Submit
+              </Button>
+              <Button
+                variant='outlined'
+                color='primary'
+                onClick={dismissPanel}
+                className='btn'
+              >
+                Close
               </Button>
             </div>
           </div>
