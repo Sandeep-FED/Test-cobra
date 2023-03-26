@@ -1,17 +1,26 @@
 import "./App.css"
-import Button from "@material-ui/core/Button"
+import { Button, TextField, IconButton } from "@material-ui/core"
 import { useState } from "react"
 import { Panel, PanelType } from "@fluentui/react/lib/Panel"
 import { useBoolean } from "@fluentui/react-hooks"
-import TextField from "@material-ui/core/TextField"
+import { SaveIcon, DeleteIcon } from "@material-ui/icons"
 
 function App() {
   // TODO: useboolean hook for controlling the state of the panel
   const [isOpen, { setTrue: openPanel, setFalse: dismissPanel }] =
     useBoolean(false)
 
+  let options = [
+    { label: "first_name", value: "First name" },
+    { label: "last_name", value: "Last name" },
+    { label: "gender", value: "Gender" },
+    { label: "account_name", value: "Account name" },
+    { label: "city", value: "City" },
+    { label: "state", value: "State" },
+  ]
+
   // TODO: For storing the input data in states for later sending purpose
-  const [age, setAge] = useState("")
+  const [optionss, setOptions] = useState("Select segment")
   const [segmentName, setSegmentName] = useState("")
 
   const Addsections = () => {
@@ -22,6 +31,15 @@ function App() {
     setSegmentName(event.target.value)
   }
   console.log(segmentName)
+
+  const handleChange = (event) => {
+    setOptions(event.target.value)
+  }
+  console.log(optionss)
+
+  // handle for sending data to server
+  const handleSubmit = () => {}
+
   return (
     <div className='App'>
       <section>
@@ -52,7 +70,38 @@ function App() {
               To save your segment, you need to add the schemas to build the
               query
             </p>
-            <p onClick={Addsections}>Add new schema</p>
+            <div className='drop-down'>
+              <select onChange={handleChange}>
+                <option value='⬇️ Select a fruit ⬇️'>
+                  -- Select a segment --
+                </option>
+
+                {options.map((optionss) => (
+                  <option key={optionss.label} value={optionss.value}>
+                    {optionss.label}
+                  </option>
+                ))}
+                <IconButton aria-label='delete'>
+                  <DeleteIcon />
+                </IconButton>
+              </select>
+              <div>
+                <Button onClick={Addsections} startIcon={<SaveIcon />}>
+                  Add new schema
+                </Button>
+              </div>
+            </div>
+            <div className='footer'>
+              {" "}
+              <Button
+                variant='outlined'
+                color='primary'
+                onClick={handleSubmit}
+                className='btn'
+              >
+                Submit
+              </Button>
+            </div>
           </div>
         </Panel>
       </section>
