@@ -3,7 +3,8 @@ import { Button, TextField, IconButton } from "@material-ui/core"
 import { useState } from "react"
 import { Panel, PanelType } from "@fluentui/react/lib/Panel"
 import { useBoolean } from "@fluentui/react-hooks"
-import { SaveIcon, DeleteIcon } from "@material-ui/icons"
+import DeleteIcon from "@material-ui/icons/Delete"
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline"
 
 function App() {
   // TODO: useboolean hook for controlling the state of the panel
@@ -81,12 +82,15 @@ function App() {
                     {optionss.label}
                   </option>
                 ))}
-                <IconButton aria-label='delete'>
-                  <DeleteIcon />
-                </IconButton>
               </select>
+              <IconButton aria-label='delete'>
+                <DeleteIcon />
+              </IconButton>
               <div>
-                <Button onClick={Addsections} startIcon={<SaveIcon />}>
+                <Button
+                  onClick={Addsections}
+                  startIcon={<AddCircleOutlineIcon />}
+                >
                   Add new schema
                 </Button>
               </div>
